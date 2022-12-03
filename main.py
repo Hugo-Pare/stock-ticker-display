@@ -17,13 +17,13 @@ class RunText(SampleBase):
         ### Modified section ###
 
         ### Colors ###
-        # White - (0, 0, 0)
+        # White - (255, 255, 255)
         # Green - (0, 153, 0)
         # Red - (255, 0, 0)
 
         ### End of modified section
 
-        textColor = graphics.Color(0, 0, 0)
+        textColor = graphics.Color(255, 255, 255)
         pos = offscreen_canvas.width
         my_text = self.args.text
 
