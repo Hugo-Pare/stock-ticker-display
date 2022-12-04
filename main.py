@@ -26,7 +26,8 @@ class RunText(SampleBase):
         textColorUp = graphics.Color(0, 153, 0)
         textColorDown = graphics.Color(255, 0, 0)
 
-        pos = offscreen_canvas.width
+        #pos = offscreen_canvas.width
+        pos = 0 
         textLine1 = "Invesco QQQ Trust (QQQ)"
         textLine2 = "211.89 (-18.44%)"
 
@@ -34,7 +35,7 @@ class RunText(SampleBase):
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
-            pos -= 0
+            # pos -= 1
 
             # # Change this to biggest of line1/line2
             # if (pos + line1 < 0):
