@@ -28,8 +28,8 @@ class RunText(SampleBase):
         textLine1 = "Invesco QQQ Trust (QQQ)"
         textLine2 = "211.89 (-18.44%)"
 
-        line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColorUp, textLine1)
-        line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
+        graphics.DrawText(offscreen_canvas, font, pos, 12, textColorUp, textLine1)
+        graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
 
         while True:
             # offscreen_canvas.Clear()
