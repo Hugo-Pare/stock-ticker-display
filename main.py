@@ -6,16 +6,13 @@ import time
 
 
 class RunText(SampleBase):
-    def __init__(self, *args, **kwargs):
-        super(RunText, self).__init__(*args, **kwargs)
-
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
         font.LoadFont("fonts/9x15.bdf")
         ### Modified section ###
 
-        # Input : sudo python3 main.py --led-cols=64 --led-gpio-mapping=adafruit-hat --text="Hello, world!"
+        # Input : sudo python3 main.py --led-cols=64 --led-gpio-mapping=adafruit-hat
 
         ### Colors ###
         # White - (255, 255, 255)
