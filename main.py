@@ -31,10 +31,12 @@ class RunText(SampleBase):
         textLine1 = "Invesco QQQ Trust (QQQ)"
         textLine2 = "211.89 (-18.44%)"
 
+        line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, textLine1)
+        line2 = graphics.DrawText(offscreen_canvas, font, pos, 0, textColorDown, textLine2)
+
         while True:
-            offscreen_canvas.Clear()
-            line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, textLine1)
-            line2 = graphics.DrawText(offscreen_canvas, font, pos, 0, textColorDown, textLine2)
+            # offscreen_canvas.Clear()
+        
             # pos -= 1
 
             # # Change this to biggest of line1/line2
