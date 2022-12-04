@@ -8,7 +8,6 @@ import time
 class RunText(SampleBase):
     def __init__(self, *args, **kwargs):
         super(RunText, self).__init__(*args, **kwargs)
-        self.parser.add_argument("-t", "--text", help="The text to scroll on the RGB LED panel", default="Hello world!")
 
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
@@ -28,12 +27,13 @@ class RunText(SampleBase):
         textColorDown = graphics.Color(255, 0, 0)
 
         pos = offscreen_canvas.width
-        my_text = self.args.text
+        textLine1 = "Invesco QQQ Trust (QQQ)"
+        textLine2 = "211.89 (-18.44%)"
 
         while True:
             offscreen_canvas.Clear()
-            line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, my_text)
-            line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, "211.89 (-18.44%)")
+            line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, textLine1)
+            line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
             pos -= 1
 
             # Change this to biggest of line1/line2
