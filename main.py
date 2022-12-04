@@ -16,6 +16,8 @@ class RunText(SampleBase):
         font.LoadFont("fonts/9x15.bdf")
         ### Modified section ###
 
+        # Input : sudo python3 main.py --led-cols=64 --led-gpio-mapping=adafruit-hat --text="Hello, world!"
+
         ### Colors ###
         # White - (255, 255, 255)
         # Green - (0, 153, 0)
@@ -29,7 +31,7 @@ class RunText(SampleBase):
 
         while True:
             offscreen_canvas.Clear()
-            len = graphics.DrawText(offscreen_canvas, font, pos, 15, textColor, my_text)
+            len = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, my_text)
             pos -= 1
             if (pos + len < 0):
                 pos = offscreen_canvas.width
