@@ -33,7 +33,10 @@ class RunText(SampleBase):
         while True:
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, my_text)
+            line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, "211.89 (-18.44%)")
             pos -= 1
+
+            # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
 
