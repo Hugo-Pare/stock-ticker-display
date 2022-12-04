@@ -12,25 +12,28 @@ class RunText(SampleBase):
         font.LoadFont("fonts/9x15.bdf")
         ### Modified section ###
 
-        # Input : sudo python3 main.py --led-cols=64 --led-gpio-mapping=adafruit-hat
+        # Input : sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2
 
         ### Colors ###
         # White - (255, 255, 255)
         # Green - (0, 153, 0)
         # Red - (255, 0, 0)
+        # Blue - (0, 0, 255)
 
         textColor = graphics.Color(255, 255, 255)
         textColorUp = graphics.Color(0, 153, 0)
         textColorDown = graphics.Color(255, 0, 0)
 
+        textColorBlue = graphics.Color(0, 0, 255)
+
         pos = offscreen_canvas.width
-        textLine1 = "Invesco QQQ Trust (QQQ)"
-        textLine2 = "211.89 (-18.44%)"
+        textLine1 = "line 1"
+        textLine2 = "line 2"
 
         while True:
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColorUp, textLine1)
-            line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
+            line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorBlue, textLine2)
             pos -= 1
 
             # Change this to biggest of line1/line2
