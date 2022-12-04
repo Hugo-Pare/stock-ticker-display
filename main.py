@@ -34,11 +34,11 @@ class RunText(SampleBase):
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
-            pos -= 1
+            # pos -= 1
 
-            # Change this to biggest of line1/line2
-            if (pos + line1 < 0):
-                pos = offscreen_canvas.width
+            # # Change this to biggest of line1/line2
+            # if (pos + line1 < 0):
+            #     pos = offscreen_canvas.width
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
