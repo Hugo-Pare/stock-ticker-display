@@ -23,17 +23,18 @@ class RunText(SampleBase):
         # Green - (0, 153, 0)
         # Red - (255, 0, 0)
 
-        ### End of modified section
-
         textColor = graphics.Color(255, 255, 255)
+        textColorUp = graphics.Color(0, 153, 0)
+        textColorDown = graphics.Color(255, 0, 0)
+
         pos = offscreen_canvas.width
         my_text = self.args.text
 
         while True:
             offscreen_canvas.Clear()
-            len = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, my_text)
+            line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, my_text)
             pos -= 1
-            if (pos + len < 0):
+            if (pos + line1 < 0):
                 pos = offscreen_canvas.width
 
             time.sleep(0.05)
