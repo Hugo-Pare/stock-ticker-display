@@ -34,7 +34,7 @@ class RunText(SampleBase):
         while True:
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, textLine1)
-            line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
+            line2 = graphics.DrawText(offscreen_canvas, font, pos, 0, textColorDown, textLine2)
             # pos -= 1
 
             # # Change this to biggest of line1/line2
