@@ -32,7 +32,7 @@ class RunText(SampleBase):
         textLine2 = "211.89 (-18.44%)"
 
         line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColor, textLine1)
-        line2 = graphics.DrawText(offscreen_canvas, font, pos, 0, textColorDown, textLine2)
+        line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorDown, textLine2)
 
         while True:
             # offscreen_canvas.Clear()
