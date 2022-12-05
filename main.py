@@ -8,8 +8,10 @@ import time
 class RunText(SampleBase):
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
-        font = graphics.Font()
-        font.LoadFont("fonts/9x15.bdf")
+        font1 = graphics.Font()
+        font2 = graphics.Font()
+        font1.LoadFont("fonts/10x20.bdf")
+        font2.LoadFont("fonts/8x13.bdf")
         ### Modified section ###
 
         # Input : sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2
@@ -20,24 +22,24 @@ class RunText(SampleBase):
         # Red - (255, 0, 0)
         # Blue - (0, 0, 255)
 
-        textColor = graphics.Color(255, 255, 255)
-        textColorUp = graphics.Color(0, 153, 0)
-        textColorDown = graphics.Color(255, 0, 0)
+        textColorWhite = graphics.Color(255, 255, 255)
+        textColorGreen = graphics.Color(0, 153, 0)
+        textColorRed = graphics.Color(255, 0, 0)
 
         textColorBlue = graphics.Color(0, 0, 255)
 
         pos = offscreen_canvas.width
-        textLine1 = "line 1"
-        textLine2 = "line 2"
+        textLine1 = "KO 64.35 +0.56 (+0.9%)"
+        textLine2 = "S&P/TSX 20,500.00 +250.00 (+0.9%)"
 
         while True:
             offscreen_canvas.Clear()
-            line1 = graphics.DrawText(offscreen_canvas, font, pos, 12, textColorUp, textLine1)
-            line2 = graphics.DrawText(offscreen_canvas, font, pos, 28, textColorBlue, textLine2)
+            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
+            line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 1
 
             # Change this to biggest of line1/line2
-            if (pos + line1 < 0):
+            if (pos + line2 < 0):
                 pos = offscreen_canvas.width
 
             time.sleep(0.05)
