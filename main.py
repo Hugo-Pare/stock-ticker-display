@@ -10,6 +10,10 @@ from yahoo_fin.stock_info import get_live_price, get_quote_table
 
 # Input :  sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2 --led-show-refresh --led-pwm-bits=2
 
+count = 0
+text1 = ""
+text2 = ""
+
 class RunText(SampleBase):
 
     def run(self):
@@ -60,10 +64,6 @@ class RunText(SampleBase):
 
             time.sleep(0.005)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-
-count = 0
-text1 = ""
-text2 = ""
 
 def get_stock_values(ticker):
     ### fetching API ###
