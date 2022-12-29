@@ -5,6 +5,7 @@ from rgbmatrix import graphics
 import time
 
 import yfinance as yf
+import yahoo_fin.stock_info as si
 from yahoo_fin.stock_info import get_live_price
 
 # Input : sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2
