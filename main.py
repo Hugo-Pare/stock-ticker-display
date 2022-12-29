@@ -10,7 +10,6 @@ from yahoo_fin.stock_info import get_live_price, get_quote_table
 
 # Input :  sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2 --led-show-refresh --led-pwm-bits=2
 
-count = 0
 text1 = ""
 text2 = ""
 
@@ -35,6 +34,7 @@ class RunText(SampleBase):
         textColorBlue = graphics.Color(0, 0, 255)
         
         pos = offscreen_canvas.width
+        count = 0
 
         tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
         ticker = "KO"
@@ -44,7 +44,7 @@ class RunText(SampleBase):
 
         ### Lines to display ###
         textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-        get_index_values('^GSPTSE')
+        get_index_values('^GSPTSE', count)
         textLine2 = index + " " + text2
 
         while True:
@@ -60,7 +60,7 @@ class RunText(SampleBase):
             # Updating stock prices
             textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
             #textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
-            get_index_values('^GSPTSE')
+            get_index_values('^GSPTSE', count)
 
             time.sleep(0.005)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
@@ -73,7 +73,7 @@ def get_stock_values(ticker):
     return round(live_price, 2)
 
 # Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
-def get_index_values(ticker):
+def get_index_values(ticker, count):
     ### fetching API ###
     live_price = si.get_live_price(ticker) 
     previous_close = yf.Ticker(ticker).info['regularMarketPreviousClose']
