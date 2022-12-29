@@ -66,11 +66,12 @@ def get_stock_values(ticker):
 def get_index_values(ticker):
 
     ### fetching API ###
+    table = si.get_quote_table(ticker, dict_result=False)
 
     live_price = si.get_live_price(ticker) 
-    previous_close = si.get_quote_table(ticker, dict_result=False)["Previous Close"]
+    previous_close = table["Previous Close"]
 
-    return round(live_price)
+    return round(previous_close)
 
 get_index_values("KO")
 
