@@ -12,15 +12,6 @@ from yahoo_fin.stock_info import get_live_price
 
 class RunText(SampleBase):
 
-    async def get_values(ticker):
-
-        ### fetching API ###
-
-        live_price = si.get_live_price(ticker) 
-
-        return str(round(live_price, 2))
-
-        
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font1 = graphics.Font()
@@ -61,6 +52,15 @@ class RunText(SampleBase):
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+
+
+async def get_values(ticker):
+
+    ### fetching API ###
+
+    live_price = si.get_live_price(ticker) 
+
+    return str(round(live_price, 2))
 
 
 # Main function
