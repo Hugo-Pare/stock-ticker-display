@@ -33,6 +33,7 @@ class RunText(SampleBase):
         ticker = "BTC-USD"
         pos = offscreen_canvas.width
         index = "S&P/TSX"
+        count = 5
 
         ### Lines to display ###
         textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
@@ -43,14 +44,17 @@ class RunText(SampleBase):
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 5
+            count -= 1
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
 
             # Updating stock prices
-            textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-            textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
+            if(count == 0):
+                textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+                textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
+                count += 5
 
             time.sleep(0.005)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
@@ -71,7 +75,7 @@ def get_index_values(ticker):
     table = si.get_quote_table(ticker)
 
     live_price = si.get_live_price(ticker) 
-    print(table["Previous Close"])
+    #print(table["Previous Close"])
 
     return round(live_price)
 
