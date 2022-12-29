@@ -39,7 +39,7 @@ class RunText(SampleBase):
 
         while True:
 
-            textLine1 = ticker + " " + get_values(ticker)
+            textLine1 = ticker + " " + str(get_values(ticker))
 
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
@@ -60,7 +60,7 @@ async def get_values(ticker):
 
     live_price = si.get_live_price(ticker) 
 
-    return str(round(live_price, 2))
+    return round(live_price, 2)
 
 
 # Main function
