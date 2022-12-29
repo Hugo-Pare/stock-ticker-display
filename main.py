@@ -6,7 +6,7 @@ import time
 
 import yfinance as yf
 import yahoo_fin.stock_info as si
-from yahoo_fin.stock_info import get_live_price
+from yahoo_fin.stock_info import get_live_price, get_quote_table
 
 # Input : sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2
 
@@ -38,8 +38,8 @@ class RunText(SampleBase):
 
         while True:
             # Updating stock prices
-            textLine1 = ticker + " " + str(get_values(ticker))
-            textLine2 = "S&P/TSX " + str(get_index_values("^GSPTSE"))
+            textLine1 = ticker + " " + str(get_stock_values(ticker))
+            textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
 
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
@@ -47,14 +47,14 @@ class RunText(SampleBase):
             pos -= 8
 
             # Change this to biggest of line1/line2
-            if (pos + line2 < 0):
+            if (pos + line1 < 0):
                 pos = offscreen_canvas.width
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 
-def get_values(ticker):
+def get_stock_values(ticker):
 
     ### fetching API ###
 
@@ -62,15 +62,17 @@ def get_values(ticker):
 
     return round(live_price, 2)
 
-
+# Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
 def get_index_values(ticker):
 
     ### fetching API ###
 
     live_price = si.get_live_price(ticker) 
+    previous_close = si.get_quote_table(ticker, dict_result=False)["Previous Close"]
 
-    return round(live_price, 0)
+    return round(live_price)
 
+get_index_values("KO")
 
 # Main function
 if __name__ == "__main__":
