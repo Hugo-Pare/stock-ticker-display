@@ -71,9 +71,9 @@ def get_stock_values(ticker):
 def get_index_values(ticker):
     ### fetching API ###
     stats = yf.Ticker(ticker).stats()
-    
+
     live_price = si.get_live_price(ticker) 
-    previous_close = stats['quoteType']['price']['regularMarketPreviousClose']
+    previous_close = stats['price']['regularMarketPreviousClose']
 
     print(previous_close)
 
