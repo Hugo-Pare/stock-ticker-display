@@ -39,7 +39,7 @@ class RunText(SampleBase):
         while True:
             # Updating stock prices
             textLine1 = ticker + " " + str(get_values(ticker))
-            textLine2 = "S&P/TSX " + str(get_values("^GSPTSE"))
+            textLine2 = "S&P/TSX " + str(get_index_values("^GSPTSE"))
 
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
@@ -61,6 +61,15 @@ def get_values(ticker):
     live_price = si.get_live_price(ticker) 
 
     return round(live_price, 2)
+
+
+def get_index_values(ticker):
+
+    ### fetching API ###
+
+    live_price = si.get_live_price(ticker) 
+
+    return round(live_price, 0)
 
 
 # Main function
