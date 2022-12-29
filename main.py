@@ -70,10 +70,12 @@ def get_stock_values(ticker):
 # Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
 def get_index_values(ticker):
     ### fetching API ###
+    stats = yf.Ticker(ticker).stats()
+    
     live_price = si.get_live_price(ticker) 
-    previous_close = yf.Ticker(ticker).info['regularMarketPreviousClose']
+    previous_close = stats['quoteType']['price']['regularMarketPreviousClose']
 
-    print("fetch API")
+    print(previous_close)
 
     if(round(live_price) == round(previous_close)):
         # No change or closed market
