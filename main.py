@@ -34,7 +34,7 @@ class RunText(SampleBase):
         KO_price = si.get_live_price("^GSPC") 
 
         pos = offscreen_canvas.width
-        textLine1 = "KO " + KO_price
+        textLine1 = "KO " + str(KO_price)
         textLine2 = "S&P/TSX 20,500.00 +250.00 (+0.9%)"
 
         while True:
