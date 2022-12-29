@@ -54,7 +54,7 @@ class RunText(SampleBase):
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 
-async def get_values(ticker):
+def get_values(ticker):
 
     ### fetching API ###
 
