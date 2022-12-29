@@ -52,7 +52,7 @@ class RunText(SampleBase):
             textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
             textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
 
-            time.sleep(0.05)
+            time.sleep(0.005)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 
@@ -71,11 +71,10 @@ def get_index_values(ticker):
     table = si.get_quote_table(ticker)
 
     live_price = si.get_live_price(ticker) 
-    previous_close = table["Previous Close"]
+    print(table["Previous Close"])
 
-    return round(previous_close)
+    return round(live_price)
 
-get_index_values("KO")
 
 # Main function
 if __name__ == "__main__":
