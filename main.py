@@ -38,13 +38,13 @@ class RunText(SampleBase):
 
         while True:
             # Updating stock prices
-            textLine1 = ticker + " " + str(get_stock_values(ticker))
+            textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
             textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
 
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
-            pos -= 8
+            pos -= 20
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
@@ -69,7 +69,7 @@ def get_index_values(ticker):
     table = si.get_quote_table(ticker)
 
     live_price = si.get_live_price(ticker) 
-    previous_close = table["Previous Close"]
+    previous_close = table['value'][14]
 
     return round(previous_close)
 
