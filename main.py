@@ -3,10 +3,7 @@
 from samplebase import SampleBase
 from rgbmatrix import graphics
 import time
-
 import yfinance as yf
-import yahoo_fin.stock_info as si
-from yahoo_fin.stock_info import get_live_price, get_quote_table
 
 # Input :  sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2 --led-show-refresh --led-pwm-bits=2
 
@@ -44,9 +41,9 @@ class RunText(SampleBase):
 
         while True:
             offscreen_canvas.Clear()
-            #line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
+            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
-            pos -= 3
+            pos -= 8
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
@@ -62,8 +59,9 @@ class RunText(SampleBase):
 
 def get_stock_values(ticker):
     ### fetching API ###
+    stats = yf.Ticker(ticker).stats()
 
-    live_price = si.get_live_price(ticker) 
+    live_price = stats['price']['regularMarketPrice'] 
 
     return round(live_price, 2)
 
