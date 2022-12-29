@@ -30,25 +30,27 @@ class RunText(SampleBase):
         textColorRed = graphics.Color(255, 0, 0)
         textColorBlue = graphics.Color(0, 0, 255)
 
-        ### Lines to display ###
-
         ticker = "BTC-USD"
         pos = offscreen_canvas.width
         index = "S&P/TSX"
 
-        while True:
-            # Updating stock prices
-            textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-            textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
+        ### Lines to display ###
+        textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+        textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
 
+        while True:
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
-            pos -= 20
+            pos -= 5
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
+
+            # Updating stock prices
+            textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+            textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
