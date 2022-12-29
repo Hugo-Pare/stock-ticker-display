@@ -29,15 +29,19 @@ class RunText(SampleBase):
         textColorGreen = graphics.Color(0, 153, 0)
         textColorRed = graphics.Color(255, 0, 0)
         textColorBlue = graphics.Color(0, 0, 255)
-
-        ticker = "KO"
+        
         pos = offscreen_canvas.width
-        index = "S&P/TSX"
         count = 5
+
+        tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
+        ticker = "KO"
+        indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
+        indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
+        index = "S&P/TSX"
 
         ### Lines to display ###
         textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-        textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
+        textLine2 = index + " " + str(f"{get_index_values('^GSPTSE'):,}")
 
         while True:
             offscreen_canvas.Clear()
@@ -53,7 +57,7 @@ class RunText(SampleBase):
             # Updating stock prices
             if(count == 0):
                 textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-                textLine2 = "S&P/TSX " + str(f"{get_index_values('^GSPTSE'):,}")
+                textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
                 count += 5
 
             time.sleep(0.005)
@@ -72,12 +76,23 @@ def get_stock_values(ticker):
 def get_index_values(ticker):
 
     ### fetching API ###
-    #table = si.get_quote_table(ticker)
-
     live_price = si.get_live_price(ticker) 
-    #print(table["Previous Close"])
+    previous_close = yf.Ticker(ticker).info['regularMarketPreviousClose']
 
-    return round(live_price)
+    print(previous_close)
+
+    if(round(live_price) == round(previous_close)):
+        # No change or closed market
+        return str(f"{round(live_price):,}")
+    
+    elif(round(live_price) > round(previous_close)):
+        # Up
+        difference = round(live_price) - round(previous_close)
+        return str(f"{round(previous_close):,}") + " +" + str(f"{round(difference):,}")
+
+    
+
+    
 
 
 # Main function
