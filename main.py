@@ -35,12 +35,10 @@ class RunText(SampleBase):
         ticker = "KO"
 
         pos = offscreen_canvas.width
+        textLine1 = ticker + " " + str(get_values(ticker))
         textLine2 = "S&P/TSX"
 
         while True:
-
-            textLine1 = ticker + " " + str(get_values(ticker))
-
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
@@ -49,6 +47,9 @@ class RunText(SampleBase):
             # Change this to biggest of line1/line2
             if (pos + line2 < 0):
                 pos = offscreen_canvas.width
+
+            # Updating stock prices
+            textLine1 = ticker + " " + str(get_values(ticker))
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
