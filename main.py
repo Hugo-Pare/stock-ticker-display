@@ -32,18 +32,19 @@ class RunText(SampleBase):
 
         ### Lines to display ###
 
-        ticker = "KO"
+        ticker = "BTC-USD"
         pos = offscreen_canvas.width
-        textLine2 = "S&P/TSX"
+        index = "S&P/TSX"
 
         while True:
             # Updating stock prices
             textLine1 = ticker + " " + str(get_values(ticker))
+            textLine2 = "S&P/TSX " + str(get_values("^GSPTSE"))
 
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
-            pos -= 10
+            pos -= 8
 
             # Change this to biggest of line1/line2
             if (pos + line2 < 0):
