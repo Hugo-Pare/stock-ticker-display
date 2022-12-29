@@ -69,7 +69,7 @@ def get_index_values(ticker):
     table = si.get_quote_table(ticker)
 
     live_price = si.get_live_price(ticker) 
-    previous_close = table['value'][14]
+    previous_close = table["Previous Close"]
 
     return round(previous_close)
 
