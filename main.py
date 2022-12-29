@@ -29,15 +29,17 @@ class RunText(SampleBase):
         textColorRed = graphics.Color(255, 0, 0)
         textColorBlue = graphics.Color(0, 0, 255)
 
-        ### fetching API ###
+        ### Lines to display ###
 
-        KO_price = si.get_live_price("KO") 
+        ticker = "KO"
 
         pos = offscreen_canvas.width
-        textLine1 = "KO " + str(round(KO_price, 2))
-        textLine2 = "S&P/TSX 20,500.00 +250.00 (+0.9%)"
+        textLine2 = "S&P/TSX"
 
         while True:
+
+            textLine1 = ticker + " " + get_values(ticker)
+
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
@@ -49,6 +51,16 @@ class RunText(SampleBase):
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+
+
+    async def get_values(ticker):
+
+        ### fetching API ###
+
+        live_price = si.get_live_price(ticker) 
+
+        return str(round(live_price, 2))
+        
 
 # Main function
 if __name__ == "__main__":
