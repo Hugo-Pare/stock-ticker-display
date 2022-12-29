@@ -31,7 +31,6 @@ class RunText(SampleBase):
         textColorBlue = graphics.Color(0, 0, 255)
         
         pos = offscreen_canvas.width
-        count = 5
 
         tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
         ticker = "KO"
@@ -69,7 +68,7 @@ def get_stock_values(ticker):
     return round(live_price, 2)
 
 # Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
-def get_index_values(ticker, count):
+def get_index_values(ticker):
     ### fetching API ###
     live_price = si.get_live_price(ticker) 
     previous_close = yf.Ticker(ticker).info['regularMarketPreviousClose']
