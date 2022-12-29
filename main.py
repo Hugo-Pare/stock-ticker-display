@@ -31,7 +31,6 @@ class RunText(SampleBase):
         textColorBlue = graphics.Color(0, 0, 255)
         
         pos = offscreen_canvas.width
-        count = 5
 
         tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
         ticker = "KO"
@@ -41,31 +40,32 @@ class RunText(SampleBase):
 
         ### Lines to display ###
         textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-        textLine2 = index + " " + str(f"{get_index_values('^GSPTSE'):,}")
+        get_index_values('^GSPTSE')
+        textLine2 = index + " " + text2
 
         while True:
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 2
-            count -= 1
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
 
             # Updating stock prices
-            if(count == 0):
-                textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-                textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
-                count += 5
+            textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+            #textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
+            get_index_values('^GSPTSE')
 
             time.sleep(0.005)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
+count = 0
+text1 = ""
+text2 = ""
 
 def get_stock_values(ticker):
-
     ### fetching API ###
 
     live_price = si.get_live_price(ticker) 
@@ -74,21 +74,31 @@ def get_stock_values(ticker):
 
 # Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
 def get_index_values(ticker):
-
     ### fetching API ###
     live_price = si.get_live_price(ticker) 
     previous_close = yf.Ticker(ticker).info['regularMarketPreviousClose']
 
-    print(previous_close)
+    if(count == 0):
+        print("refresh data")
 
-    if(round(live_price) == round(previous_close)):
-        # No change or closed market
-        return str(f"{round(live_price):,}")
-    
-    elif(round(live_price) > round(previous_close)):
-        # Up
-        difference = round(live_price) - round(previous_close)
-        return str(f"{round(previous_close):,}") + " +" + str(f"{round(difference):,}")
+        if(round(live_price) == round(previous_close)):
+            # No change or closed market
+            text2 = str(f"{round(live_price):,}")
+        
+        elif(round(live_price) > round(previous_close)):
+            # Up
+            difference = round(live_price) - round(previous_close)
+            text2 = str(f"{round(previous_close):,}") + " +" + str(f"{round(difference):,}")
+
+        else:
+            # Down
+            difference = round(previous_close) - round(live_price)
+            text2 = str(f"{round(previous_close):,}") + " -" + str(f"{round(difference):,}")
+
+        count += 5
+
+    else:
+        count -= 1
 
     
 
