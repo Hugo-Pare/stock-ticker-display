@@ -99,13 +99,11 @@ class RunText(SampleBase):
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-
-    def __await__(self):
-        return self().__await__()
+            
 
 
 # Main function
 if __name__ == "__main__":
-    run_text = asyncio.run(RunText())
+    run_text = RunText()
     if (not run_text.process()):
         run_text.print_help()
