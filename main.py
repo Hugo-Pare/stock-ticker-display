@@ -6,11 +6,21 @@ import time
 import yfinance as yf
 import asyncio
 
-# Input :  sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2 --led-show-refresh --led-pwm-bits=2
+# Input :  sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2 --led-pwm-bits=2
+
+tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
+ticker = "BTC-USD"
+indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
+indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
+index = "S&P/TSX"
+
+### Lines to display ###
+textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+textLine2 = index + " " + get_index_values('^GSPTSE')
 
 class RunText(SampleBase):
 
-    def run(self):
+    async def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font1 = graphics.Font()
         font2 = graphics.Font()
@@ -30,31 +40,22 @@ class RunText(SampleBase):
         
         pos = offscreen_canvas.width
 
-        tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
-        ticker = "KO"
-        indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
-        indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
-        index = "S&P/TSX"
-
-        ### Lines to display ###
-        textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-        textLine2 = index + " " + get_index_values('^GSPTSE')
-
         while True:
             offscreen_canvas.Clear()
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
-            pos -= 8
+            pos -= 1
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
 
             # Updating stock prices
+            await asyncio.gather(change_values(ticker))
             # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
             # textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
 
-            time.sleep(0.005)
+            time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 
@@ -65,6 +66,16 @@ def get_stock_values(ticker):
     live_price = stats['price']['regularMarketPrice'] 
 
     return round(live_price, 2)
+
+async def change_values(ticker):
+    ## fetching API async ###
+    stats = yf.Ticker(ticker).stats()
+
+    live_price = stats['price']['regularMarketPrice']
+    rounded_price = round(live_price, 2)
+
+    textLine1 = ticker + " " + str(f"{rounded_price:,}")
+
 
 # Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
 def get_index_values(ticker):
