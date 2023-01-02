@@ -14,6 +14,48 @@ indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
 indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
 index = "S&P/TSX"
 
+def get_stock_values(ticker):
+    ### fetching API ###
+    stats = yf.Ticker(ticker).stats()
+
+    live_price = stats['price']['regularMarketPrice'] 
+
+    return round(live_price, 2)
+
+async def change_values(ticker):
+    ## fetching API async ###
+    stats = yf.Ticker(ticker).stats()
+
+    live_price = stats['price']['regularMarketPrice']
+    rounded_price = round(live_price, 2)
+
+    textLine1 = ticker + " " + str(f"{rounded_price:,}")
+
+
+# Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
+def get_index_values(ticker):
+    ### fetching API ###
+    stats = yf.Ticker(ticker).stats()
+
+    live_price = stats['price']['regularMarketPrice'] 
+    previous_close = stats['price']['regularMarketPreviousClose']
+
+    print(previous_close)
+
+    if(round(live_price) == round(previous_close)):
+        # No change or closed market
+        return str(f"{round(live_price):,}")
+    
+    elif(round(live_price) > round(previous_close)):
+        # Up
+        difference = round(live_price) - round(previous_close)
+        return str(f"{round(previous_close):,}") + " +" + str(f"{round(difference):,}")
+
+    else:
+        # Down
+        difference = round(previous_close) - round(live_price)
+        return str(f"{round(previous_close):,}") + " -" + str(f"{round(difference):,}")
+
 ### Lines to display ###
 textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
 textLine2 = index + " " + get_index_values('^GSPTSE')
@@ -57,53 +99,6 @@ class RunText(SampleBase):
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-
-
-def get_stock_values(ticker):
-    ### fetching API ###
-    stats = yf.Ticker(ticker).stats()
-
-    live_price = stats['price']['regularMarketPrice'] 
-
-    return round(live_price, 2)
-
-async def change_values(ticker):
-    ## fetching API async ###
-    stats = yf.Ticker(ticker).stats()
-
-    live_price = stats['price']['regularMarketPrice']
-    rounded_price = round(live_price, 2)
-
-    textLine1 = ticker + " " + str(f"{rounded_price:,}")
-
-
-# Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
-def get_index_values(ticker):
-    ### fetching API ###
-    stats = yf.Ticker(ticker).stats()
-
-    live_price = stats['price']['regularMarketPrice'] 
-    previous_close = stats['price']['regularMarketPreviousClose']
-
-    print(previous_close)
-
-    if(round(live_price) == round(previous_close)):
-        # No change or closed market
-        return str(f"{round(live_price):,}")
-    
-    elif(round(live_price) > round(previous_close)):
-        # Up
-        difference = round(live_price) - round(previous_close)
-        return str(f"{round(previous_close):,}") + " +" + str(f"{round(difference):,}")
-
-    else:
-        # Down
-        difference = round(previous_close) - round(live_price)
-        return str(f"{round(previous_close):,}") + " -" + str(f"{round(difference):,}")
-
-    
-
-    
 
 
 # Main function
