@@ -4,6 +4,7 @@ from samplebase import SampleBase
 from rgbmatrix import graphics
 import time
 import yfinance as yf
+import asyncio
 
 # Input :  sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2 --led-show-refresh --led-pwm-bits=2
 
@@ -50,8 +51,8 @@ class RunText(SampleBase):
                 pos = offscreen_canvas.width
 
             # Updating stock prices
-            textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-            textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
+            # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+            # textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
 
             time.sleep(0.005)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
