@@ -8,23 +8,15 @@ import asyncio
 
 # Input :  sudo python3 main.py --led-cols=64 --led-rows=32 --led-gpio-mapping=adafruit-hat --led-slowdown-gpio=2 --led-pwm-bits=2
 
-tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
-ticker = "BTC-USD"
-indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
-indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
+# tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
+# indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
+# indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
 index = "S&P/TSX"
+ticker = "BTC-USD"
 
-def get_stock_values(ticker):
-    ### fetching API ###
-    stats = yf.Ticker(ticker).stats()
-
-    live_price = stats['price']['regularMarketPrice'] 
-
-    return round(live_price, 2)
-
-async def change_values(ticker):
+async def update_values(ticker):
     ## fetching API async ###
-    stats = yf.Ticker(ticker).stats()
+    stats = await asncio.gather(yf.Ticker(ticker).stats())
 
     live_price = stats['price']['regularMarketPrice']
     rounded_price = round(live_price, 2)
@@ -62,7 +54,7 @@ textLine2 = index + " " + get_index_values('^GSPTSE')
 
 class RunText(SampleBase):
 
-    async def run(self):
+    def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font1 = graphics.Font()
         font2 = graphics.Font()
@@ -93,14 +85,13 @@ class RunText(SampleBase):
                 pos = offscreen_canvas.width
 
             # Updating stock prices
-            await asyncio.gather(change_values(ticker))
+            update_values(ticker)
             # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
             # textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
             
-
 
 # Main function
 if __name__ == "__main__":
