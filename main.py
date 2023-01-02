@@ -49,7 +49,8 @@ def get_index_values(ticker):
         return str(f"{round(previous_close):,}") + " -" + str(f"{round(difference):,}")
 
 ### Lines to display ###
-textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+# textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+textLine1 = ""
 textLine2 = index + " " + get_index_values('^GSPTSE')
 
 class RunText(SampleBase):
