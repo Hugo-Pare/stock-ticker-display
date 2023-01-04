@@ -61,7 +61,7 @@ class RunText(SampleBase):
         font1.LoadFont("fonts/10x20.bdf")
         font2.LoadFont("fonts/8x13.bdf")
 
-        textLine1 = update_values(ticker)
+        textLine1 = self.update_values(ticker)
         print(textLine1)
 
         ### Colors ###
