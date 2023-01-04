@@ -47,6 +47,8 @@ class RunText(SampleBase):
             return [ticker + " " + str(f"{round(live_price, 2):,.2f}") + " -" + str(f"{round(difference, 2):,.2f}"), 2]
 
     def get_index_values(self, ticker, num):
+        index = num % len(indices_tickers)
+
         ### fetching API ###
         stats = yf.Ticker(ticker).stats()
 
@@ -55,17 +57,17 @@ class RunText(SampleBase):
 
         if(round(live_price) == round(previous_close)):
             # No change or closed market
-            return [indices_names[num] + " " + str(f"{round(live_price):,}"), 0]
+            return [indices_names[index] + " " + str(f"{round(live_price):,}"), 0]
         
         elif(round(live_price) > round(previous_close)):
             # Up
             difference = round(live_price) - round(previous_close)
-            return [indices_names[num] + " " + str(f"{round(live_price):,}") + " +" + str(f"{round(difference):,}"), 1]
+            return [indices_names[index] + " " + str(f"{round(live_price):,}") + " +" + str(f"{round(difference):,}"), 1]
 
         else:
             # Down
             difference = round(previous_close) - round(live_price)
-            return [indices_names[num] + " " + str(f"{round(live_price):,}") + " -" + str(f"{round(difference):,}"), 2]
+            return [indices_names[index] + " " + str(f"{round(live_price):,}") + " -" + str(f"{round(difference):,}"), 2]
 
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
