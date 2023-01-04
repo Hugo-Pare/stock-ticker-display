@@ -51,7 +51,6 @@ def get_index_values(ticker):
 # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
 textLine1 = ""
 textLine2 = index + " " + get_index_values('^GSPTSE')
-update_values(ticker)
 
 class RunText(SampleBase):
 
@@ -61,6 +60,8 @@ class RunText(SampleBase):
         font2 = graphics.Font()
         font1.LoadFont("fonts/10x20.bdf")
         font2.LoadFont("fonts/8x13.bdf")
+
+        update_values(ticker)
 
         ### Colors ###
         # White - (255, 255, 255)
