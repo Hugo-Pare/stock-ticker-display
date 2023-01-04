@@ -21,7 +21,6 @@ def update_values(ticker):
     live_price = stats['price']['regularMarketPrice']
     rounded_price = round(live_price, 2)
     textLine1 = ticker + " " + str(f"{rounded_price:,}")
-    print(textLine1)
 
 
 # Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
@@ -78,6 +77,7 @@ class RunText(SampleBase):
 
         while True:
             offscreen_canvas.Clear()
+            print(textLine1)
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 1
