@@ -83,10 +83,10 @@ class RunText(SampleBase):
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
+                update_values(ticker)
                 pos = offscreen_canvas.width
 
             # Updating stock prices
-            update_values(ticker)
             # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
             # textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
 
