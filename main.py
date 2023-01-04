@@ -30,6 +30,8 @@ class RunText(SampleBase):
         rounded_price = round(live_price, 2)
         textLine1 = ticker + " " + str(f"{rounded_price:,}")
 
+    update_values(ticker)
+
     def get_index_values(ticker):
         ### fetching API ###
         stats = yf.Ticker(ticker).stats()
@@ -60,8 +62,6 @@ class RunText(SampleBase):
         font1.LoadFont("fonts/10x20.bdf")
         font2.LoadFont("fonts/8x13.bdf")
 
-        update_values(ticker)
-        time.sleep(5)
         print(textLine1)
 
         ### Colors ###
