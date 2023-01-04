@@ -17,6 +17,8 @@ class RunText(SampleBase):
     index = "S&P/TSX"
     global ticker 
     ticker = "KO"
+    global ticker2
+    ticker = "^GSPTSE"
 
     ### Lines to display ###
     global textLine1
@@ -43,9 +45,9 @@ class RunText(SampleBase):
             difference = round(previous_close) - round(live_price)
             return ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}")
 
-    def get_index_values(self, index):
+    def get_index_values(self, ticker2):
         ### fetching API ###
-        stats = yf.Ticker(index).stats()
+        stats = yf.Ticker(ticker2).stats()
 
         live_price = stats['price']['regularMarketPrice'] 
         previous_close = stats['price']['regularMarketPreviousClose']
@@ -72,7 +74,7 @@ class RunText(SampleBase):
         font2.LoadFont("fonts/8x13.bdf")
 
         textLine1 = self.update_values(ticker)
-        textLine2 = self.get_index_values(index)
+        textLine2 = self.get_index_values(ticker2)
 
         ### Colors ###
         # White - (255, 255, 255)
@@ -98,7 +100,7 @@ class RunText(SampleBase):
                 pos = offscreen_canvas.width
                 # Updating stock prices
                 textLine1 = self.update_values(ticker)
-                textLine2 = self.get_index_values(ticker)
+                textLine2 = self.get_index_values(ticker2)
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
