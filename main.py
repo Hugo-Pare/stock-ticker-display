@@ -19,7 +19,6 @@ class RunText(SampleBase):
     ### Lines to display ###
     # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
     global textLine1
-    textLine1 = ""
     # textLine2 = index + " " + get_index_values('^GSPTSE')
     global textLine2 
     textLine2 = index
@@ -30,9 +29,9 @@ class RunText(SampleBase):
 
         live_price = stats['price']['regularMarketPrice']
         rounded_price = round(live_price, 2)
-        textLine1 = ticker + " " + str(f"{rounded_price:,}")
+        return ticker + " " + str(f"{rounded_price:,}")
 
-    update_values(ticker)
+    textLine1 = update_values(ticker)
 
     def get_index_values(ticker):
         ### fetching API ###
@@ -88,7 +87,7 @@ class RunText(SampleBase):
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
-                update_values(ticker)
+                textLine1 = update_values(ticker)
 
             # Updating stock prices
             # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
