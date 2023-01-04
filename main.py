@@ -19,7 +19,6 @@ class RunText(SampleBase):
 
     ### Lines to display ###
     global textLine1
-    global colorLine1
     global textLine2
 
     def update_values(self, ticker):
@@ -31,23 +30,17 @@ class RunText(SampleBase):
 
         if(round(live_price) == round(previous_close)):
             # No change or closed market
-            colorLine1 = "white"
             return ticker + " " + str(f"{round(live_price, 2):,}")
         
         elif(round(live_price) > round(previous_close)):
             # Up
             difference = round(live_price) - round(previous_close)
-            colorLine1 = "green"
             return ticker + " " + str(f"{round(previous_close, 2):,}") + " +" + str(f"{round(difference):,}")
 
         else:
             # Down
             difference = round(previous_close) - round(live_price)
-            colorLine1 = "red"
             return ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}")
-
-    def get_color_stock(self):
-        return colorLine1
 
     def get_index_values(ticker):
         ### fetching API ###
@@ -78,7 +71,6 @@ class RunText(SampleBase):
         font2.LoadFont("fonts/8x13.bdf")
 
         textLine1 = self.update_values(ticker)
-        colorLine1 = self.get_index_values()
 
         ### Colors ###
         # White - (255, 255, 255)
@@ -90,20 +82,12 @@ class RunText(SampleBase):
         textColorGreen = graphics.Color(0, 153, 0)
         textColorRed = graphics.Color(255, 0, 0)
         textColorBlue = graphics.Color(0, 0, 255)
-
-        if(colorLine1 == "white"):
-            textColor1 = textColorWhite
-        elif(colorLine1 == "green"):
-            textColor1 = textColorGreen
-        else:
-            textColor1 = textColorRed
-
         
         pos = offscreen_canvas.width
 
         while True:
             offscreen_canvas.Clear()
-            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColor1, textLine1)
+            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorWhite, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 1
 
