@@ -71,6 +71,7 @@ class RunText(SampleBase):
         font2.LoadFont("fonts/8x13.bdf")
 
         textLine1 = self.update_values(ticker)
+        textLine2 = self.get_index_values(ticker)
 
         ### Colors ###
         # White - (255, 255, 255)
@@ -96,7 +97,7 @@ class RunText(SampleBase):
                 pos = offscreen_canvas.width
                 # Updating stock prices
                 textLine1 = self.update_values(ticker)
-                colorLine1 = self.get_index_values()
+                textLine2 = self.get_index_values(ticker)
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
