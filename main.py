@@ -13,6 +13,7 @@ class RunText(SampleBase):
     # tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
     # indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
     # indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
+    global index 
     index = "S&P/TSX"
     global ticker 
     ticker = "KO"
