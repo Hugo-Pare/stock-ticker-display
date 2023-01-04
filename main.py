@@ -21,6 +21,7 @@ class RunText(SampleBase):
     global textLine1
     textLine1 = ""
     # textLine2 = index + " " + get_index_values('^GSPTSE')
+    global textLine2 
     textLine2 = index
 
     def update_values(ticker):
