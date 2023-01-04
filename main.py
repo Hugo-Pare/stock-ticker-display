@@ -14,6 +14,7 @@ class RunText(SampleBase):
     # indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
     # indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
     index = "S&P/TSX"
+    global ticker 
     ticker = "BTC-USD"
 
     ### Lines to display ###
