@@ -24,7 +24,7 @@ class RunText(SampleBase):
     global textLine2 
     textLine2 = index
 
-    def update_values(ticker):
+    def update_values(self, ticker):
         ## fetching API async ###
         stats = yf.Ticker(ticker).stats()
 
@@ -87,7 +87,7 @@ class RunText(SampleBase):
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
-                textLine1 = update_values(ticker)
+                textLine1 = self.update_values(ticker)
 
             # Updating stock prices
             # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
