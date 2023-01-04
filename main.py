@@ -61,7 +61,7 @@ class RunText(SampleBase):
 
         else:
             # Down
-            difference = round(previous_close2) - round(live_price2)
+            difference2 = round(previous_close2) - round(live_price2)
             return index + " " + str(f"{round(previous_close2):,}") + " -" + str(f"{round(difference2):,}")
 
     def run(self):
