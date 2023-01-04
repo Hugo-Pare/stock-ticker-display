@@ -20,8 +20,8 @@ def update_values(ticker):
 
     live_price = stats['price']['regularMarketPrice']
     rounded_price = round(live_price, 2)
-
     textLine1 = ticker + " " + str(f"{rounded_price:,}")
+    print(textLine1)
 
 
 # Important indices : S&P/TSX - DOW - S&P 500 - NASDAQ
@@ -51,7 +51,7 @@ def get_index_values(ticker):
 ### Lines to display ###
 # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
 textLine1 = ""
-# textLine2 = index + " " + get_index_values('^GSPTSE')
+textLine2 = index + " " + get_index_values('^GSPTSE')
 update_values(ticker)
 
 class RunText(SampleBase):
