@@ -18,19 +18,37 @@ class RunText(SampleBase):
     ticker = "BTC-USD"
 
     ### Lines to display ###
-    # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
     global textLine1
-    # textLine2 = index + " " + get_index_values('^GSPTSE')
+    global colorLine1
     global textLine2 
-    textLine2 = index
+    global colorLine2
 
     def update_values(self, ticker):
         ## fetching API async ###
         stats = yf.Ticker(ticker).stats()
 
         live_price = stats['price']['regularMarketPrice']
-        rounded_price = round(live_price, 2)
-        return ticker + " " + str(f"{rounded_price:,}")
+        previous_close = stats['price']['regularMarketPreviousClose']
+
+        if(round(live_price) == round(previous_close)):
+            # No change or closed market
+            colorLine1 = "white"
+            return ticker + " " + str(f"{round(live_price, 2):,}")
+        
+        elif(round(live_price) > round(previous_close)):
+            # Up
+            difference = round(live_price) - round(previous_close)
+            colorLine1 = "green"
+            return ticker + " " + str(f"{round(previous_close, 2):,}") + " +" + str(f"{round(difference):,}")
+
+        else:
+            # Down
+            difference = round(previous_close) - round(live_price)
+            colorLine1 = "red"
+            return ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}")
+
+    def get_color_stock(self):
+        return colorLine1
 
     def get_index_values(ticker):
         ### fetching API ###
@@ -39,21 +57,19 @@ class RunText(SampleBase):
         live_price = stats['price']['regularMarketPrice'] 
         previous_close = stats['price']['regularMarketPreviousClose']
 
-        print(previous_close)
-
         if(round(live_price) == round(previous_close)):
             # No change or closed market
-            return str(f"{round(live_price):,}")
+            return index + " " + str(f"{round(live_price):,}")
         
         elif(round(live_price) > round(previous_close)):
             # Up
             difference = round(live_price) - round(previous_close)
-            return str(f"{round(previous_close):,}") + " +" + str(f"{round(difference):,}")
+            return index + " " + str(f"{round(previous_close):,}") + " +" + str(f"{round(difference):,}")
 
         else:
             # Down
             difference = round(previous_close) - round(live_price)
-            return str(f"{round(previous_close):,}") + " -" + str(f"{round(difference):,}")
+            return index + " " + str(f"{round(previous_close):,}") + " -" + str(f"{round(difference):,}")
 
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
@@ -63,7 +79,7 @@ class RunText(SampleBase):
         font2.LoadFont("fonts/8x13.bdf")
 
         textLine1 = self.update_values(ticker)
-        print(textLine1)
+        colorLine1 = self.get_index_values()
 
         ### Colors ###
         # White - (255, 255, 255)
@@ -80,18 +96,16 @@ class RunText(SampleBase):
 
         while True:
             offscreen_canvas.Clear()
-            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
+            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, colorLine1, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 1
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
+                # Updating stock prices
                 textLine1 = self.update_values(ticker)
-
-            # Updating stock prices
-            # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-            # textLine2 = "S&P/TSX " + get_index_values('^GSPTSE')
+                colorLine1 = self.get_index_values()
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
