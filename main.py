@@ -14,9 +14,9 @@ import asyncio
 index = "S&P/TSX"
 ticker = "BTC-USD"
 
-async def update_values(ticker):
+def update_values(ticker):
     ## fetching API async ###
-    stats = await asncio.gather(yf.Ticker(ticker).stats())
+    stats = yf.Ticker(ticker).stats()
 
     live_price = stats['price']['regularMarketPrice']
     rounded_price = round(live_price, 2)
@@ -52,6 +52,7 @@ def get_index_values(ticker):
 # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
 textLine1 = ""
 textLine2 = index + " " + get_index_values('^GSPTSE')
+update_values(ticker)
 
 class RunText(SampleBase):
 
