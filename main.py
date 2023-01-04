@@ -32,19 +32,19 @@ class RunText(SampleBase):
         previous_close = stats['price']['regularMarketPreviousClose']
         print(previous_close)
 
-        if(round(live_price) == round(previous_close)):
+        if(round(live_price, 2) == round(previous_close, 2)):
             # No change or closed market
             return [ticker + " " + str(f"{round(live_price, 2):,}"), 0]
         
-        elif(round(live_price) > round(previous_close)):
+        elif(round(live_price, 2) > round(previous_close, 2)):
             # Up
             difference = round(live_price) - round(previous_close)
-            return [ticker + " " + str(f"{round(previous_close, 2):,}") + " +" + str(f"{round(difference):,}"), 1]
+            return [ticker + " " + str(f"{round(previous_close, 2):,}") + " +" + str(f"{round(difference, 2):,}"), 1]
 
         else:
             # Down
-            difference = round(previous_close) - round(live_price)
-            return [ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}"), 2]
+            difference = round(previous_close, 2) - round(live_price, 2)
+            return [ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference, 2):,}"), 2]
 
     def get_index_values(self, ticker2):
         ### fetching API ###
