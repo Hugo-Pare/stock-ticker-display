@@ -18,6 +18,7 @@ class RunText(SampleBase):
 
     ### Lines to display ###
     # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+    global textLine1
     textLine1 = ""
     # textLine2 = index + " " + get_index_values('^GSPTSE')
     textLine2 = index
