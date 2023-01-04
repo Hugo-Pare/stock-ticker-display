@@ -54,17 +54,17 @@ class RunText(SampleBase):
 
         if(round(live_price) == round(previous_close)):
             # No change or closed market
-            return index + " " + str(f"{round(live_price):,}")
+            return [index + " " + str(f"{round(live_price):,}"), 0]
         
         elif(round(live_price) > round(previous_close)):
             # Up
             difference = round(live_price) - round(previous_close)
-            return index + " " + str(f"{round(live_price):,}") + " +" + str(f"{round(difference):,}")
+            return [index + " " + str(f"{round(live_price):,}") + " +" + str(f"{round(difference):,}"), 1]
 
         else:
             # Down
             difference = round(previous_close) - round(live_price)
-            return index + " " + str(f"{round(live_price):,}") + " -" + str(f"{round(difference):,}")
+            return [index + " " + str(f"{round(live_price):,}") + " -" + str(f"{round(difference):,}"), 2]
 
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
@@ -91,7 +91,7 @@ class RunText(SampleBase):
         pos = offscreen_canvas.width
 
         textLine1 = infoLine1[0]
-        textLine2 = infoLine2
+        textLine2 = infoLine2[0]
         colorLine1 = textColors[infoLine1[1]]
 
         while True:
@@ -108,6 +108,7 @@ class RunText(SampleBase):
                 infoLine2 = self.get_index_values(ticker2)
 
                 textLine1 = infoLine1[0]
+                textLine2 = infoLine2[0]
                 colorLine1 = textColors[infoLine1[1]]
 
             time.sleep(0.05)
