@@ -105,8 +105,8 @@ class RunText(SampleBase):
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 1
 
-            # Change this to biggest of line1/line2
-            if (pos + line1 + 16 < 0):
+            # Can also do (pos + line1 + 64 < 0)
+            if (pos + line1 < 0):
                 pos = offscreen_canvas.width
                 # Updating stock prices
                 counter1 += 1
