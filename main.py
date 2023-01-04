@@ -37,7 +37,7 @@ class RunText(SampleBase):
         
         elif(round(live_price, 2) > round(previous_close, 2)):
             # Up
-            difference = round(live_price) - round(previous_close)
+            difference = round(live_price, 2) - round(previous_close, 2)
             return [ticker + " " + str(f"{round(live_price, 2):,.2f}") + " +" + str(f"{round(difference, 2):,.2f}"), 1]
 
         else:
