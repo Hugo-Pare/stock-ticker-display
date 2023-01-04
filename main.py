@@ -91,6 +91,7 @@ class RunText(SampleBase):
         pos = offscreen_canvas.width
 
         textLine1 = infoLine1[0]
+        textLine2 = infoLine2
         colorLine1 = textColors[infoLine1[1]]
 
         while True:
