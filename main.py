@@ -18,11 +18,11 @@ class RunText(SampleBase):
     global ticker 
     ticker = "KO"
     global ticker2
-    ticker = "^GSPTSE"
+    ticker2 = "^GSPTSE"
 
     ### Lines to display ###
-    global textLine1
-    global textLine2
+    global infoLine1
+    global infoLine2
 
     def update_values(self, ticker):
         ## fetching API async ###
@@ -33,17 +33,17 @@ class RunText(SampleBase):
 
         if(round(live_price) == round(previous_close)):
             # No change or closed market
-            return ticker + " " + str(f"{round(live_price, 2):,}")
+            return [ticker + " " + str(f"{round(live_price, 2):,}"), 0]
         
         elif(round(live_price) > round(previous_close)):
             # Up
             difference = round(live_price) - round(previous_close)
-            return ticker + " " + str(f"{round(previous_close, 2):,}") + " +" + str(f"{round(difference):,}")
+            return [ticker + " " + str(f"{round(previous_close, 2):,}") + " +" + str(f"{round(difference):,}"), 1]
 
         else:
             # Down
             difference = round(previous_close) - round(live_price)
-            return ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}")
+            return [ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}"), 2]
 
     def get_index_values(self, ticker2):
         ### fetching API ###
@@ -73,8 +73,8 @@ class RunText(SampleBase):
         font1.LoadFont("fonts/10x20.bdf")
         font2.LoadFont("fonts/8x13.bdf")
 
-        textLine1 = self.update_values(ticker)
-        textLine2 = self.get_index_values(ticker2)
+        infoLine1 = self.update_values(ticker)
+        infoLine2 = self.get_index_values(ticker2)
 
         ### Colors ###
         # White - (255, 255, 255)
@@ -86,12 +86,16 @@ class RunText(SampleBase):
         textColorGreen = graphics.Color(0, 153, 0)
         textColorRed = graphics.Color(255, 0, 0)
         textColorBlue = graphics.Color(0, 0, 255)
+        textColors = [textColorWhite, textColorGreen, textColorRed, textColorBlue]
         
         pos = offscreen_canvas.width
 
+        textLine1 = infoLine1[0]
+        colorLine1 = textColors[infoLine1[1]]
+
         while True:
             offscreen_canvas.Clear()
-            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorWhite, textLine1)
+            line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, colorLine1, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 1
 
@@ -99,8 +103,11 @@ class RunText(SampleBase):
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
                 # Updating stock prices
-                textLine1 = self.update_values(ticker)
-                textLine2 = self.get_index_values(ticker2)
+                infoLine1 = self.update_values(ticker)
+                infoLine2 = self.get_index_values(ticker2)
+
+                textLine1 = infoLine1[0]
+                colorLine1 = textColors[infoLine1[1]]
 
             time.sleep(0.05)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
