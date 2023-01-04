@@ -30,6 +30,7 @@ class RunText(SampleBase):
 
         live_price = stats['price']['regularMarketPrice']
         previous_close = stats['price']['regularMarketPreviousClose']
+        print(previous_close)
 
         if(round(live_price) == round(previous_close)):
             # No change or closed market
