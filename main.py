@@ -104,13 +104,13 @@ class RunText(SampleBase):
             pos -= 1
 
             # Change this to biggest of line1/line2
-            if (pos + line1 < 0):
+            if (pos + line1 + 16 < 0):
                 pos = offscreen_canvas.width
                 # Updating stock prices
                 counter1 += 1
                 counter2 += 1
                 infoLine1 = self.update_values(stock_tickers[counter1 % len(stock_tickers)])
-                infoLine2 = self.get_index_values(indices_tickers[counter1 % len(indices_tickers)], counter2)
+                infoLine2 = self.get_index_values(indices_tickers[counter2 % len(indices_tickers)], counter2)
 
                 textLine1 = infoLine1[0]
                 textLine2 = infoLine2[0]
