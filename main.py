@@ -15,13 +15,12 @@ class RunText(SampleBase):
     # indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
     index = "S&P/TSX"
     global ticker 
-    ticker = "BTC-USD"
+    ticker = "KO"
 
     ### Lines to display ###
     global textLine1
     global colorLine1
-    global textLine2 
-    global colorLine2
+    global textLine2
 
     def update_values(self, ticker):
         ## fetching API async ###
