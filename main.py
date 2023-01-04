@@ -43,9 +43,9 @@ class RunText(SampleBase):
             difference = round(previous_close) - round(live_price)
             return ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}")
 
-    def get_index_values(self, ticker):
+    def get_index_values(self, index):
         ### fetching API ###
-        stats = yf.Ticker(ticker).stats()
+        stats = yf.Ticker(index).stats()
 
         live_price = stats['price']['regularMarketPrice'] 
         previous_close = stats['price']['regularMarketPreviousClose']
