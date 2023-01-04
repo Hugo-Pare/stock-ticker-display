@@ -62,6 +62,8 @@ class RunText(SampleBase):
         font2.LoadFont("fonts/8x13.bdf")
 
         update_values(ticker)
+        time.sleep(5)
+        print(textLine1)
 
         ### Colors ###
         # White - (255, 255, 255)
@@ -78,7 +80,6 @@ class RunText(SampleBase):
 
         while True:
             offscreen_canvas.Clear()
-            print(textLine1)
             line1 = graphics.DrawText(offscreen_canvas, font1, pos, 14, textColorGreen, textLine1)
             line2 = graphics.DrawText(offscreen_canvas, font2, pos, 30, textColorWhite, textLine2)
             pos -= 1
