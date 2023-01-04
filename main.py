@@ -51,7 +51,7 @@ def get_index_values(ticker):
 ### Lines to display ###
 # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
 textLine1 = ""
-textLine2 = index + " " + get_index_values('^GSPTSE')
+# textLine2 = index + " " + get_index_values('^GSPTSE')
 update_values(ticker)
 
 class RunText(SampleBase):
@@ -84,8 +84,8 @@ class RunText(SampleBase):
 
             # Change this to biggest of line1/line2
             if (pos + line1 < 0):
-                update_values(ticker)
                 pos = offscreen_canvas.width
+                update_values(ticker)
 
             # Updating stock prices
             # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
