@@ -13,13 +13,10 @@ class RunText(SampleBase):
     global stock_tickers
     global indices_tickers
     global indices_names
-    global counter
 
     stock_tickers = ["AAPL", "GOOGL", "INTC", "MSFT", "TSLA"]
     indices_tickers = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
     indices_names = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
-
-    counter = 0
 
 
     global index 
@@ -81,6 +78,7 @@ class RunText(SampleBase):
         font2 = graphics.Font()
         font1.LoadFont("fonts/10x20.bdf")
         font2.LoadFont("fonts/8x13.bdf")
+        counter = 0
 
         infoLine1 = self.update_values(stock_tickers[0])
         infoLine2 = self.get_index_values(ticker2)
