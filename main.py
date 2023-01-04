@@ -32,23 +32,20 @@ class RunText(SampleBase):
 
         if(round(live_price) == round(previous_close)):
             # No change or closed market
-            colorLine1 = "white"
             return ticker + " " + str(f"{round(live_price, 2):,}")
         
         elif(round(live_price) > round(previous_close)):
             # Up
             difference = round(live_price) - round(previous_close)
-            colorLine1 = "green"
             return ticker + " " + str(f"{round(previous_close, 2):,}") + " +" + str(f"{round(difference):,}")
 
         else:
             # Down
             difference = round(previous_close) - round(live_price)
-            colorLine1 = "red"
             return ticker + " " + str(f"{round(previous_close, 2):,}") + " -" + str(f"{round(difference):,}")
 
     def get_color_stock(self):
-        return colorLine1
+        return "green"
 
     def get_index_values(ticker):
         ### fetching API ###
