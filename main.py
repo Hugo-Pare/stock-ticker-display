@@ -10,16 +10,16 @@ import asyncio
 
 class RunText(SampleBase):
 
-    ### Lines to display ###
-    # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
-    textLine1 = ""
-    textLine2 = index + " " + get_index_values('^GSPTSE')
-
     # tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
     # indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
     # indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
     index = "S&P/TSX"
     ticker = "BTC-USD"
+
+    ### Lines to display ###
+    # textLine1 = ticker + " " + str(f"{get_stock_values(ticker):,}")
+    textLine1 = ""
+    textLine2 = index + " " + get_index_values('^GSPTSE')
 
     def update_values(ticker):
         ## fetching API async ###
