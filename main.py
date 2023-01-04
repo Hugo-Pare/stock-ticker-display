@@ -16,7 +16,7 @@ class RunText(SampleBase):
 
     stock_tickers = ["AAPL", "GOOGL", "INTC", "MSFT", "TSLA", "QQQ"]
     indices_tickers = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
-    indices_names = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
+    indices_names = ["S&P/TSX", "DOW JONES", "S&P 500", "NASDAQ"]
 
     global index 
     index = "S&P/TSX"
@@ -110,7 +110,7 @@ class RunText(SampleBase):
                 counter1 += 1
                 counter2 += 1
                 infoLine1 = self.update_values(stock_tickers[counter1 % len(stock_tickers)])
-                infoLine2 = self.get_index_values(indices_tickers[counter1 % len(stock_tickers)], counter2)
+                infoLine2 = self.get_index_values(indices_tickers[counter1 % len(indices_tickers)], counter2)
 
                 textLine1 = infoLine1[0]
                 textLine2 = infoLine2[0]
