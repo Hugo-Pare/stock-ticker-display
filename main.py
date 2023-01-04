@@ -14,17 +14,12 @@ class RunText(SampleBase):
     global indices_tickers
     global indices_names
 
-    stock_tickers = ["AAPL", "GOOGL", "INTC", "MSFT", "TSLA"]
+    stock_tickers = ["AAPL", "GOOGL", "INTC", "MSFT", "TSLA", "QQQ"]
     indices_tickers = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
     indices_names = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
 
-
     global index 
     index = "S&P/TSX"
-    global ticker 
-    ticker = "QQQ"
-    global ticker2
-    ticker2 = "^GSPTSE"
 
     ### Lines to display ###
     global infoLine1
@@ -51,26 +46,26 @@ class RunText(SampleBase):
             difference = round(previous_close, 2) - round(live_price, 2)
             return [ticker + " " + str(f"{round(live_price, 2):,.2f}") + " -" + str(f"{round(difference, 2):,.2f}"), 2]
 
-    def get_index_values(self, ticker2):
+    def get_index_values(self, ticker, num):
         ### fetching API ###
-        stats = yf.Ticker(ticker2).stats()
+        stats = yf.Ticker(ticker).stats()
 
         live_price = stats['price']['regularMarketPrice'] 
         previous_close = stats['price']['regularMarketPreviousClose']
 
         if(round(live_price) == round(previous_close)):
             # No change or closed market
-            return [index + " " + str(f"{round(live_price):,}"), 0]
+            return [indices_names[num] + " " + str(f"{round(live_price):,}"), 0]
         
         elif(round(live_price) > round(previous_close)):
             # Up
             difference = round(live_price) - round(previous_close)
-            return [index + " " + str(f"{round(live_price):,}") + " +" + str(f"{round(difference):,}"), 1]
+            return [indices_names[num] + " " + str(f"{round(live_price):,}") + " +" + str(f"{round(difference):,}"), 1]
 
         else:
             # Down
             difference = round(previous_close) - round(live_price)
-            return [index + " " + str(f"{round(live_price):,}") + " -" + str(f"{round(difference):,}"), 2]
+            return [indices_names[num] + " " + str(f"{round(live_price):,}") + " -" + str(f"{round(difference):,}"), 2]
 
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
@@ -78,10 +73,11 @@ class RunText(SampleBase):
         font2 = graphics.Font()
         font1.LoadFont("fonts/10x20.bdf")
         font2.LoadFont("fonts/8x13.bdf")
-        counter = 0
+        counter1 = 0
+        counter2 = 0
 
-        infoLine1 = self.update_values(stock_tickers[0])
-        infoLine2 = self.get_index_values(ticker2)
+        infoLine1 = self.update_values(stock_tickers[counter1])
+        infoLine2 = self.get_index_values(indices_tickers[counter2], counter2)
 
         ### Colors ###
         # White - (255, 255, 255)
@@ -111,9 +107,10 @@ class RunText(SampleBase):
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
                 # Updating stock prices
-                counter += 1
-                infoLine1 = self.update_values(stock_tickers[counter % len(stock_tickers)])
-                infoLine2 = self.get_index_values(ticker2)
+                counter1 += 1
+                counter2 += 1
+                infoLine1 = self.update_values(stock_tickers[counter1 % len(stock_tickers)])
+                infoLine2 = self.get_index_values(indices_tickers[counter1 % len(stock_tickers)], counter2)
 
                 textLine1 = infoLine1[0]
                 textLine2 = infoLine2[0]
