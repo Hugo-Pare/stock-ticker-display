@@ -10,9 +10,18 @@ import asyncio
 
 class RunText(SampleBase):
 
-    # tickers = ["AAPL", "INTC", "MSFT", "TSLA"]
-    # indices_ticker = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
-    # indices_name = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
+    global stock_tickers
+    global indices_tickers
+    global indices_names
+    global counter
+
+    stock_tickers = ["AAPL", "GOOGL", "INTC", "MSFT", "TSLA"]
+    indices_tickers = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
+    indices_names = ["S&P/TSX", "DOW", "S&P 500", "NASDAQ"]
+
+    counter = 0
+
+
     global index 
     index = "S&P/TSX"
     global ticker 
@@ -73,7 +82,7 @@ class RunText(SampleBase):
         font1.LoadFont("fonts/10x20.bdf")
         font2.LoadFont("fonts/8x13.bdf")
 
-        infoLine1 = self.update_values(ticker)
+        infoLine1 = self.update_values(stock_tickers[0])
         infoLine2 = self.get_index_values(ticker2)
 
         ### Colors ###
@@ -104,7 +113,8 @@ class RunText(SampleBase):
             if (pos + line1 < 0):
                 pos = offscreen_canvas.width
                 # Updating stock prices
-                infoLine1 = self.update_values(ticker)
+                counter += 1
+                infoLine1 = self.update_values(stock_tickers[counter % len(stock_tickers)])
                 infoLine2 = self.get_index_values(ticker2)
 
                 textLine1 = infoLine1[0]
