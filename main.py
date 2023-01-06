@@ -14,12 +14,9 @@ class RunText(SampleBase):
     global indices_tickers
     global indices_names
 
-    stock_tickers = ["AAPL", "GOOGL", "INTC", "MSFT", "TSLA", "QQQ"]
-    indices_tickers = ["^GSPTSE", "^DJI", "^GSPC", "^IXIC"]
-    indices_names = ["S&P/TSX", "DOW JONES", "S&P 500", "NASDAQ"]
-
-    global index 
-    index = "S&P/TSX"
+    stock_tickers = ["AAPL", "AMZN", "GOOGL", "INTC", "MSFT", "SCHD", "TSLA", "QQQ", "ENB.TO", "SU.TO", "RY.TO"]
+    indices_tickers = ["^DJI", "^GSPC", "^IXIC", "^GSPTSE"]
+    indices_names = ["DOW JONES", "S&P 500", "NASDAQ", "S&P/TSX"]
 
     ### Lines to display ###
     global infoLine1
