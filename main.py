@@ -26,10 +26,10 @@ class RunText(SampleBase):
         ## fetching API async ###
         stats = yf.Ticker(ticker).stats()
 
+        print(stats)
+
         live_price = stats['price']['regularMarketPrice']
         previous_close = stats['price']['regularMarketPreviousClose']
-
-        print(live_price)
 
         if(round(live_price, 2) == round(previous_close, 2)):
             # No change or closed market
