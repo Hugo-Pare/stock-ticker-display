@@ -14,7 +14,7 @@ class RunText(SampleBase):
     global indices_tickers
     global indices_names
 
-    stock_tickers = ["AAPL", "AMZN", "GOOGL", "INTC", "MSFT", "SCHD", "TSLA", "QQQ", "ENB.TO", "SU.TO", "RY.TO"]
+    stock_tickers = ["AAPL", "AMZN", "GOOGL", "INTC", "MSFT", "NVDA", "SCHD", "TSLA", "QQQ", "ENB.TO", "SU.TO", "RY.TO"]
     indices_tickers = ["^DJI", "^GSPC", "^IXIC", "^GSPTSE"]
     indices_names = ["DOW JONES", "S&P 500", "NASDAQ", "S&P/TSX"]
 
@@ -28,6 +28,8 @@ class RunText(SampleBase):
 
         live_price = stats['price']['regularMarketPrice']
         previous_close = stats['price']['regularMarketPreviousClose']
+
+        print(live_price)
 
         if(round(live_price, 2) == round(previous_close, 2)):
             # No change or closed market
